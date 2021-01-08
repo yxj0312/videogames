@@ -3,8 +3,8 @@
 @section('content')
     <div class="container mx-auto px-4">
         <h2 class="text-blue-500 uppercase tracking-wide font-semibold">Popular Games</h2>
-        <div class="popular-games text-sm grid grid-cols-6 gap-12 border-b border-gray-800 pb-16">
-             <div class="game mt-8">
+        <div class="popular-games text-sm grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 xl:grid-cols-6 gap-12 border-b border-gray-800 pb-16">
+            <div class="game mt-8">
                 <div class="relative inline-block">
                     <a href="#">
                         <img src="/ff7.jpg" alt="game cover" class="hover:opacity-75 transition ease-in-out duration-150">
@@ -172,7 +172,7 @@
                 <a href="#" class="block text-base font-semibold leading-tight hover:text-gray-400 mt-8">Final Fantasy VII Remake</a>
                 <div class="text-gray-400 mt-1">Playstation 4</div>
             </div>
-        </div>
+        </div> <!-- end popular-games -->
         <div class="flex flex-col lg:flex-row my-10">
             <div class="recently-reviewed w-full lg:w-3/4 mr-0 lg:mr-32">
                 <h2 class="text-blue-500 uppercase tracking-wide font-semibold">Recently Reviewed</h2>
@@ -303,5 +303,7 @@
                     </div>
             </div>
         </div>
-    </div>
+    </div> <!-- end container -->
+
+
 @endsection
