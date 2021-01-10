@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -14,12 +15,27 @@ class GamesController extends Controller
      */
     public function index()
     {
+        $before = Carbon::now()->subMonth(9)->timestamp;
+  
+        $after = Carbon::now()->addMonth(2)->timestamp;
+
+
         $popularGames = Http::withHeaders(config('services.igdb'))
-            ->withOptions(['body' => "fields name; limit 10;",])
+            ->withBody(
+                "fields name, cover.url, first_release_date, platforms.abbreviation, rating,slug;
+                    where platforms = (48,46,130,6)
+                    & (first_release_date >= {$before}
+                    & first_release_date < {$after});
+                    sort first_release_date asc;
+                    limit 12;",'text/plain')
             ->post('https://api.igdb.com/v4/games/')
             ->json();
 
         dd($popularGames);
+
+        return view('index', [
+            'popularGames' => $popularGames,
+        ]);
     }
 
     /**
