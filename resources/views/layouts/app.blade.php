@@ -51,5 +51,6 @@
                 Powered By <a href="#" class="underline hover:text-gray-400">IGDB API</a>
             </div>
         </footer>
+        @livewireScripts
     </body>
 </html>
