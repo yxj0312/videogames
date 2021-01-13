@@ -24,35 +24,6 @@ class GamesController extends Controller
         $afterFourMonths = Carbon::now()->addMonth(4)->timestamp;
 
 
-        
-
-        $recentlyReviewed = Http::withHeaders(config('services.igdb'))
-            ->withBody(
-                "fields name, cover.url, first_release_date, platforms.abbreviation,rating, rating_count, summary;
-                    where platforms = (48,46,130,6)
-                    & rating != null
-                    & rating_count > 20
-                    & (first_release_date >= {$before}
-                    & first_release_date < {$current});
-                    sort first_release_date asc;
-                    sort rating desc;
-                    limit 3;",'text/plain')
-            ->post('https://api.igdb.com/v4/games/')
-            ->json();
-
-
-        $mostAnticipated = Http::withHeaders(config('services.igdb'))
-            ->withBody(
-                "fields name, cover.url, first_release_date, platforms.abbreviation,summary;
-                    where platforms = (48,46,130,6)
-                    & (first_release_date >= {$current}
-                    & first_release_date < {$afterFourMonths});
-                    sort first_release_date asc;
-                    limit 4;",'text/plain')
-            ->post('https://api.igdb.com/v4/games/')
-            ->json();
-
-
         $comingSoon = Http::withHeaders(config('services.igdb'))
             ->withBody(
                 "fields name, cover.url, first_release_date, platforms.abbreviation,summary;
@@ -66,7 +37,7 @@ class GamesController extends Controller
         return view('index', [
             // 'popularGames' => $popularGames,
             // 'recentlyReviewed' => $recentlyReviewed,
-            'mostAnticipated' => $mostAnticipated,
+            // 'mostAnticipated' => $mostAnticipated,
             'comingSoon' => $comingSoon,
         ]);
     }
