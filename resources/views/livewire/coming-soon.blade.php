@@ -8,7 +8,8 @@
             </div>
         </div>
     @empty
-        <div class="spinner mt-8">
-        </div>
+        @foreach (range(1, 4) as $game)
+            <x-game-card-small-skeleton />
+        @endforeach
     @endforelse
 </div>
