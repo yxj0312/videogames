@@ -4,16 +4,18 @@
     <div class="container mx-auto px-4">
         <div class="game-details border-b border-gray-800 pb-12 flex flex-col lg:flex-row">
             <div class="flex-none">
-                <img src="/ff7.jpg" alt="cover">
+                <img src="{{ Str::replaceFirst('thumb', 'cover_big',$game['cover']['url'])}}" alt="cover">
             </div>
             <div class="lg:ml-12 xl:mr-64">
-                <h2 class="font-semibold text-4xl leading-tight mt-1">Final Fantasy VII Remake</h2>
+                <h2 class="font-semibold text-4xl leading-tight mt-1">{{$game['name']}}</h2>
                 <div class="text-gray-400">
-                    <span>Adventure, RPG</span>
+                    <span>
+                        {{ $game['genres'] }}
+                    </span>
                     &middot;
-                    <span>Square Enix</span>
+                    <span>{{ $game['involvedCompanies'] }}</span>
                     &middot;
-                    <span>Playstation 4</span>
+                    <span>{{ $game['platforms'] }}</span>
                 </div>
 
                 <div class="flex flex-wrap items-center mt-8">
