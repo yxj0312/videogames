@@ -23,6 +23,7 @@ class ComingSoon extends Component
                 limit 4;",'text/plain')
         ->post('https://api.igdb.com/v4/games/')
         ->json();
+       
     }
 
     public function render()
