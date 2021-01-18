@@ -33,7 +33,7 @@ class PopularGames extends Component
             ->post('https://api.igdb.com/v4/games/')
             ->json();
         });
-
+        
         $this->popularGames = $this->formatForView($popularGamesUnformatted);
     }
 
@@ -44,7 +44,6 @@ class PopularGames extends Component
 
     private function formatForView($games)
     {
-        // return collect($games);
         return collect($games)->map(function ($game) {
             return collect($game)->merge([
                 'coverImageUrl' => Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']),
