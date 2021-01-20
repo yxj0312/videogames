@@ -19,7 +19,7 @@ class PopularGames extends Component
 
         $popularGamesUnformatted = Cache::remember('popular-games', 7, function() use($before, $after){
             sleep(3);
-            return Http::withHeaders(config('services.igdb'))
+            return Http::withHeaders(config('services.igdb.headers'))
             ->withBody(
                 "fields name, cover.url, first_release_date, platforms.abbreviation,rating, rating_count, slug;
                     where platforms = (48,46,130,6)
@@ -30,7 +30,7 @@ class PopularGames extends Component
                     sort first_release_date asc;
                     sort rating desc;
                     limit 12;",'text/plain')
-            ->post('https://api.igdb.com/v4/games/')
+            ->post(config('services.igdb.endpoint'))
             ->json();
         });
         

@@ -31,7 +31,10 @@ return [
     ],
 
     'igdb' => [
-        'Client-ID' => env('IGDB_CLIENT_ID'),
-        'Authorization' => env('IGDB_AUTHORIZATION'),
+        'headers' => [
+            'Client-ID' => env('IGDB_CLIENT_ID'),
+            'Authorization' => env('IGDB_AUTHORIZATION'),
+        ],
+        'endpoint' => 'https://api.igdb.com/v4/games/',
     ]
 ];

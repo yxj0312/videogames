@@ -18,7 +18,7 @@ class MostAnticipated extends Component
 
         $afterFourMonths = Carbon::now()->addMonth(4)->timestamp;
         
-        $mostAnticipatedUnformatted = Http::withHeaders(config('services.igdb'))
+        $mostAnticipatedUnformatted = Http::withHeaders(config('services.igdb.headers'))
             ->withBody(
                 "fields name, cover.url, first_release_date, platforms.abbreviation,summary,slug;
                     where platforms = (48,46,130,6)
@@ -26,7 +26,7 @@ class MostAnticipated extends Component
                     & first_release_date < {$afterFourMonths});
                     sort first_release_date asc;
                     limit 4;",'text/plain')
-            ->post('https://api.igdb.com/v4/games/')
+            ->post(config('services.igdb.endpoint'))
             ->json();
 
         $this->mostAnticipated = $this->formatForView($mostAnticipatedUnformatted);

@@ -16,7 +16,7 @@ class RecentlyReviewed extends Component
         $before = Carbon::now()->subMonth(12)->timestamp;
         $current = Carbon::now()->timestamp;
 
-        $recentlyReviewedUnformatted = Http::withHeaders(config('services.igdb'))
+        $recentlyReviewedUnformatted = Http::withHeaders(config('services.igdb.headers'))
             ->withBody(
                 "fields name, cover.url, first_release_date, platforms.abbreviation,rating, rating_count, summary, slug;
                 where platforms = (48,46,130,6)
@@ -29,7 +29,7 @@ class RecentlyReviewed extends Component
                 limit 3;",
                 'text/plain'
             )
-            ->post('https://api.igdb.com/v4/games/')
+            ->post(config('services.igdb.endpoint'))
             ->json();
 
         $this->recentlyReviewed = $this->formatForView($recentlyReviewedUnformatted);

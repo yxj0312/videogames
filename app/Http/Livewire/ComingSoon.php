@@ -15,14 +15,14 @@ class ComingSoon extends Component
     {
         $current = Carbon::now()->timestamp;
 
-        $comingSoonUnformatted = Http::withHeaders(config('services.igdb'))
+        $comingSoonUnformatted = Http::withHeaders(config('services.igdb.headers'))
         ->withBody(
             "fields name, cover.url, first_release_date, platforms.abbreviation,summary,slug;
                 where platforms = (48,46,130,6)
                 & (first_release_date >= {$current});
                 sort first_release_date asc;
                 limit 4;",'text/plain')
-        ->post('https://api.igdb.com/v4/games/')
+        ->post(config('services.igdb.endpoint'))
         ->json();
 
         $this->comingSoon = $this->formatForView($comingSoonUnformatted);
