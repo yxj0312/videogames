@@ -55,7 +55,7 @@ class GamesController extends Controller
                 where slug=\"{$slug}\";",'text/plain')
             ->post(config('services.igdb.endpoint'))
             ->json();
-    
+
         abort_if(!$game, 404);
 
         return view('show', [
