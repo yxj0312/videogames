@@ -38,7 +38,7 @@
                     </div>
                     <div class="flex items-center ml-12">
                         <div id="criticRating" class="w-16 h-16 bg-gray-800 rounded-full relative text-sm">
-                             @push('scripts')
+                            @push('scripts')
                                 @include('_rating', [
                                     'slug' => 'criticRating',
                                     'rating' => $game['criticRating'],
