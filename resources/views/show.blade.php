@@ -37,10 +37,14 @@
                         <div class="ml-4 text-xs">Member <br> Score</div>
                     </div>
                     <div class="flex items-center ml-12">
-                        <div class="w-16 h-16 bg-gray-800 rounded-full">
-                            <div class="font-semibold text-xs flex justify-center items-center h-full">
-                                {{ $game['criticRating'] }}
-                            </div>
+                        <div id="criticRating" class="w-16 h-16 bg-gray-800 rounded-full relative text-sm">
+                             @push('scripts')
+                                @include('_rating', [
+                                    'slug' => 'criticRating',
+                                    'rating' => $game['criticRating'],
+                                    'event' => null,
+                                ])
+                            @endpush
                         </div>
                         <div class="ml-4 text-xs">Critic <br> Score</div>
                     </div>
