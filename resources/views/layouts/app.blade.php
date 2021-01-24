@@ -12,6 +12,7 @@
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         @livewireStyles
+        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     </head>
     <body class="bg-gray-900 text-white">
         <header class="border-b border-gray-800">
