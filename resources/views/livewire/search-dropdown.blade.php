@@ -22,7 +22,10 @@
                     @foreach ($searchResults as $game )
                         <li class="border-b border-gray-700">
                         @isset($game['slug'])
-                            <a href="{{ route('games.show', $game['slug'])}}" class="block hover:bg-gray-700 flex items-center transition ease-in-out duration-150 px-3 py-3">
+                            <a href="{{ route('games.show', $game['slug'])}}" 
+                            class="block hover:bg-gray-700 flex items-center transition ease-in-out duration-150 px-3 py-3"
+                            @if ($loop->last) @keydown.tab="isVisible = false" @endif
+                            >
                                 @isset($game['cover'])
                                 <img src="{{Str::replaceFirst('thumb', 'cover_small', $game['cover']['url'])}}" alt="cover" class="w-10">
                                 @else
