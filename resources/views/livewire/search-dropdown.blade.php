@@ -3,7 +3,14 @@
         wire:model.debounce.300ms="search"
         type="text" 
         class="bg-gray-800 text-sm rounded-full w-64 px-3 pl-8 py-1 focus:outline-none focus:ring" 
-        placeholder="Search..."
+        placeholder="Search(Press '/' to focus)"
+        x-ref="search"
+        @keydown.window="
+            if(event.keyCode === 191) {
+                event.preventDefault();
+                $refs.search.focus();  
+            }
+        "
         @focus="isVisible = true"
         @keydown.escape.window = "isVisible = false"
         @keydown="isVisible = true"
