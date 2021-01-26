@@ -21,14 +21,15 @@ class PopularGames extends Component
             // sleep(3);
             return Http::withHeaders(config('services.igdb.headers'))
             ->withBody(
-                "fields name, cover.url, first_release_date, platforms.abbreviation,rating, rating_count, slug;
+                "fields name, cover.url, first_release_date,  total_rating_count, platforms.abbreviation,rating, rating_count, slug;
                     where platforms = (48,46,130,6)
+                    &  total_rating_count != null
                     & rating != null
-                    & rating_count > 20
+                    &  total_rating_count > 20
                     & (first_release_date >= {$before}
                     & first_release_date < {$after});
                     sort first_release_date asc;
-                    sort rating desc;
+                    sort  total_rating_count desc;
                     limit 12;",'text/plain')
             ->post(config('services.igdb.endpoint'))
             ->json();

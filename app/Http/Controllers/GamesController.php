@@ -67,20 +67,20 @@ class GamesController extends Controller
     private function formatGameForView($game)
     {
         return collect($game)->merge([
-            'coverImageUrl' => Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']),
+            'coverImageUrl' => isset($game['cover']) ? Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) : '#',
             'genres' => collect($game['genres'])->pluck('name')->implode(', '),
             'involvedCompanies' => $game['involved_companies'][0]['company']['name'],
             'platforms' => collect($game['platforms'])->pluck('abbreviation')->implode(', '),
             'memberRating' => array_key_exists('rating', $game) ? round($game['rating']) : '0',
             'criticRating' => array_key_exists('aggregated_rating', $game) ? round($game['aggregated_rating']) : '0',
-            'trailer' => 'https://youtube.com/embed/'.$game['videos'][0]['video_id'],
-            'screenshots' => collect($game['screenshots'])->map(function ($screenshot) {
+            'trailer' => isset($game['videos']) ? 'https://youtube.com/embed/'.$game['videos'][0]['video_id']: '#',
+            'screenshots' => isset($game['videos']) ? collect($game['screenshots'])->map(function ($screenshot) {
                 return [
                     'big' => Str::replaceFirst('thumb', 'screenshot_big', $screenshot['url']),
                     'huge' => Str::replaceFirst('thumb', 'screenshot_huge', $screenshot['url']),
                 ];
-            })->take(9),
-            'similarGames' => collect($game['similar_games'])->map(function ($game) {
+            })->take(9) : [],
+            'similarGames' => isset($game['videos']) ? collect($game['similar_games'])->map(function ($game) {
                 return collect($game)->merge([
                     'coverImageUrl' => array_key_exists('cover', $game)
                         ? Str::replaceFirst('thumb', 'cover_big', $game['cover']['url'])
@@ -90,7 +90,7 @@ class GamesController extends Controller
                         ? collect($game['platforms'])->pluck('abbreviation')->implode(', ')
                         : null,
                 ]);
-            })->take(6),
+            })->take(6): [],
             'social' => [
                 'website' => collect($game['websites'])->first(),
                 'facebook' => collect($game['websites'])->filter(function ($website) {

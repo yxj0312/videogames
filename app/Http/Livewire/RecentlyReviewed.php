@@ -13,19 +13,19 @@ class RecentlyReviewed extends Component
 
     public function loadRecentlyReviewed()
     {
-        $before = Carbon::now()->subMonth(12)->timestamp;
+        $before = Carbon::now()->subMonth(2)->timestamp;
         $current = Carbon::now()->timestamp;
 
         $recentlyReviewedUnformatted = Http::withHeaders(config('services.igdb.headers'))
             ->withBody(
-                "fields name, cover.url, first_release_date, platforms.abbreviation,rating, rating_count, summary, slug;
+                "fields name, cover.url, first_release_date,  total_rating_count, platforms.abbreviation,rating, rating_count, summary, slug;
                 where platforms = (48,46,130,6)
                 & rating != null
-                & rating_count > 20
+                & rating_count > 5
                 & (first_release_date >= {$before}
                 & first_release_date < {$current});
                 sort first_release_date asc;
-                sort rating desc;
+                sort total_rating_count desc;
                 limit 3;",
                 'text/plain'
             )
